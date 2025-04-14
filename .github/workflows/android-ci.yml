@@ -22,6 +22,15 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Node 설치
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # or your project's version
+
+      - name: node_modules 설치
+        run: npm install
+        working-directory: android/app
+
       - name: Install SDK Components
         run: |
           yes | sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
