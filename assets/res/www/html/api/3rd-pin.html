@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+	<title>Guide App</title>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<script type="text/javascript" src="../../js/mcore.min.js"></script>
+	<script type="text/javascript" src="../../js/ui/api/common.js"></script>
+</head>
+<body>
+<!-- Header Start -->
+<header id="header">
+	<h1>API</h1>
+	<button type="button" class="tbtn_l tbtn_prev">이전</button>
+	<p class="tbtn_r">
+		<button type="button" class="tbtn_home">홈</button>
+		<button type="button" class="tbtn_menu">전체메뉴</button>
+	</p>
+</header>
+<!--// Header End -->
+
+<div>
+	<input type="text">
+</div>
+<div id="container" class="submain api">
+	<section id="scroll">
+		<div>
+			<button data-function>PIN 번호 등록</button>
+			<pre>
+				M.plugin('3rd_pin_basic').register({
+					length: 4,
+					callback:function(status, result){
+						alert(JSON.stringify(result));
+					}
+				});
+		</pre>
+		</div>
+
+		<div>
+		<button data-function>PIN 번호 삭제</button>
+		<pre>
+			M.plugin('3rd_pin_basic').remove({
+				callback:function(status, result){
+					alert(JSON.stringify(result));
+				}
+			});
+		</pre>
+		</div>
+
+		<div>
+		<button data-function>PIN 번호 가져오기</button>
+		<pre>
+		M.plugin('3rd_pin_basic').get({
+			callback:function(status, result){
+				alert(JSON.stringify(result));
+			}
+		});
+		</pre>
+		</div>
+
+		<div>
+		<button data-function>PIN 번호 인증</button>
+		<pre>
+		M.plugin('3rd_pin_basic').auth({
+			length: 4,
+			callback:function(status, result){
+				alert(JSON.stringify(result));
+			}
+		});
+		</pre>
+		</div>
+
+
+	</section>
+</div>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

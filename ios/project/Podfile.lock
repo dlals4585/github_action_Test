@@ -1,0 +1,51 @@
+PODS:
+  - MCore (2.18.53)
+  - MDb (2.14.12)
+  - MFileIO (2.14.18)
+  - MMedia (2.15.43)
+  - MNet (2.14.23)
+  - MNetExt (2.14.34)
+  - MPopup (2.14.33)
+  - MZip (2.14.4)
+
+DEPENDENCIES:
+  - "MCore (from `../../node_modules/@morpheus/core/ios`)"
+  - "MDb (from `../../node_modules/@morpheus/addon-db/ios`)"
+  - "MFileIO (from `../../node_modules/@morpheus/addon-file/ios`)"
+  - "MMedia (from `../../node_modules/@morpheus/addon-media/ios`)"
+  - "MNet (from `../../node_modules/@morpheus/addon-net/ios`)"
+  - "MNetExt (from `../../node_modules/@morpheus/addon-netext/ios`)"
+  - "MPopup (from `../../node_modules/@morpheus/addon-popup/ios`)"
+  - "MZip (from `../../node_modules/@morpheus/addon-zip/ios`)"
+
+EXTERNAL SOURCES:
+  MCore:
+    :path: "../../node_modules/@morpheus/core/ios"
+  MDb:
+    :path: "../../node_modules/@morpheus/addon-db/ios"
+  MFileIO:
+    :path: "../../node_modules/@morpheus/addon-file/ios"
+  MMedia:
+    :path: "../../node_modules/@morpheus/addon-media/ios"
+  MNet:
+    :path: "../../node_modules/@morpheus/addon-net/ios"
+  MNetExt:
+    :path: "../../node_modules/@morpheus/addon-netext/ios"
+  MPopup:
+    :path: "../../node_modules/@morpheus/addon-popup/ios"
+  MZip:
+    :path: "../../node_modules/@morpheus/addon-zip/ios"
+
+SPEC CHECKSUMS:
+  MCore: 14fcc32f6df74aabcc0f4934baea023d8652f31f
+  MDb: ae133b523278b561925463d5c96dadc03d258dae
+  MFileIO: cb7eeeb2d8157d86abf00c88adbaded23b502f2c
+  MMedia: 7dc60beec188633ffa9ca32de8837e15b33018b0
+  MNet: 640c43a2289b9797ce710a36e89952019d4ed52c
+  MNetExt: 02781187b43d93bd14cf0660c1de14230dc44cba
+  MPopup: 2492436d2acb3b56e6780ccea3430170b18fdf2a
+  MZip: 94008a85f6583cb2fa1b5ce91cc470a182888b02
+
+PODFILE CHECKSUM: ee723f5bc9801af370f0e7b4afcb2dc785dee0da
+
+COCOAPODS: 1.15.2

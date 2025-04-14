@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+	<domain-config cleartextTrafficPermitted="true">
+		<domain includeSubdomains="true">127.0.0.1</domain>
+	</domain-config>
+
+	<domain-config cleartextTrafficPermitted="false">
+		<domain includeSubdomains="true">uracle.co.kr</domain>
+		<pin-set expiration="2025-07-04">
+			<!--<pin digest="SHA-256">aaaaaaaa/J4cSJ4DpeqS6bQb8LwKmtcc1mRTUvUj0HE=</pin>-->
+			<pin digest="SHA-256">LuK3yRrm/J4cSJ4DpeqS6bQb8LwKmtcc1mRTUvUj0HE=</pin>
+		</pin-set>
+		<!--<pin-set expiration="2028-12-31">
+			<pin digest="SHA-256">aaaaaaC810K5/cMjb05Qm4k3Bw5zBn4lTdO/nEW/Td4=</pin>
+		</pin-set>-->
+	</domain-config>
+</network-security-config>
+	<!--<pin digest="SHA-256">4a6cPehI7OG6cuDZka5NDZ7FR8a60d3auda+sKfg4Ng=</pin>-->
+	<!--<pin digest="SHA-256">LuK3yRrm/J4cSJ4DpeqS6bQb8LwKmtcc1mRTUvUj0HE=</pin>-->

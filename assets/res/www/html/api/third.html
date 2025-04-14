@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+	<title>세번째 화면!</title>
+	<script type="text/javascript" src="../js/mcore.min.js"></script>
+	<script type="text/javascript" src="../../js/ui/api/common.js"></script>
+</head>
+
+<body>
+	<h1>세번째 화면!</h1>
+
+	<FORM>
+		<INPUT type="button" value='window.open 수행' onclick='goWindowOpen()'>
+	</FORM>
+
+	<FORM>
+		<INPUT type="button" value='화면종료 ' onclick='pageBack()'>
+	</FORM>
+
+
+</body>
+
+<script type="text/javascript">
+
+function goWindowOpen() {
+	window.open("file:///android_asset/res/www/html/window_opend.html");
+
+}
+
+function pageBack() {
+	var data = {
+		verifyComplete: 'SUCCESS'	// or FAIL
+	};
+	var json = JSON.stringify(data);
+
+	window.exNative.closeView(json);
+}
+
+M.onReady(function(e) {
+	
+});
+
+M.onHide(function(e){
+	
+});
+
+M.onRestore(function(e) {
+	
+});
+
+</script>
+
+</html>

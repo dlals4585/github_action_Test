@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+	<title>Guide App</title>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<script type="text/javascript" src="../../js/mcore.min.js"></script>
+	<script type="text/javascript" src="../../js/ui/api/common.js"></script>
+</head>
+<body>
+
+<!-- Header Start -->
+<header id="header">
+	<h1>API</h1>
+	<button type="button" class="tbtn_l tbtn_prev">이전</button>
+	<p class="tbtn_r">
+		<button type="button" class="tbtn_home">홈</button>
+		<button type="button" class="tbtn_menu">전체메뉴</button>
+	</p>
+</header>
+<!--// Header End -->
+
+<div id="container" class="submain api">
+	<section id="scroll">
+		<div>
+		<!-- scroll 영역 -->
+
+
+<!--<button data-function>QR Open</button>
+<pre>
+M.plugin('qr').open(function(rst) {
+	if (rst.status == 'SUCCESS') {
+		var qr_data = rst.result;
+		// TODO : success code here
+		console.log(qr_data);
+		alert("qr_data::"+qr_data);
+	}
+	else {
+		// TODO: cancel or fail code here
+	}
+}, {
+	'cancel' : '이전',
+	'custom' : '',
+	'customHtml' : '',
+	'flashOn' : 'Flash ON',
+	'flashOff' : 'Flash OFF',
+	'menuAnimation' : 'ON', // ON, OFF
+});
+</pre>-->
+			<button data-function>QR Open</button>
+			<pre>
+				<!--M.plugin('qr').scan({
+				   page: 'CusomQRActivity',
+				   callback: function( result, setting ) {
+						 alert(result);
+				   },
+				});-->
+				M.plugin('qr').scan({
+					captureScale: {width:1.0, height:0.5},
+					useGuideLine : true,
+					libType: "Zxing",
+					callback: function( result, setting ) {
+					alert(JSON.stringify(result));
+					},
+				});
+			</pre>
+			<button data-function>QR Mlkit</button>
+			<pre>
+				M.plugin('qr').scan({
+					callback: function( result, setting ) {
+						alert(JSON.stringify(result));
+
+					}
+				});
+			</pre>
+
+			<button data-function>QR Zbar</button>
+			<pre>
+				M.plugin('qr').scan({
+					libType: "Zbar",
+					callback: function( result, setting ) {
+						alert(JSON.stringify(result));
+
+					}
+				});
+			</pre>
+
+			<button data-function>QR Zxing</button>
+			<pre>
+				M.plugin('qr').scan({
+					libType: "Zxing",
+					callback: function( result, setting ) {
+						alert(JSON.stringify(result));
+
+					}
+				});
+			</pre>
+<button data-function>페이지 이동</button>
+<pre>
+	//M.page.html('plugin-location.html#/login');
+</pre>
+
+		</div>
+	</section>
+</div>
+
+<!-- 전체메뉴 레이어팝업: Start -->
+<div id="popWrap" class="none"></div>
+<!--// 전체메뉴 레이어팝업: End -->
+
+<script type="text/javascript">
+
+function qrMlkit() {
+	M.plugin('qr').scan({
+        callback: function( result, setting ) {
+			alert(JSON.stringify(result));
+
+        }
+	});
+}
+
+function qrZbar() {
+	M.plugin('qr').scan({
+		libType: "Zbar",
+        callback: function( result, setting ) {
+			alert(JSON.stringify(result));
+
+        }
+	});
+}
+
+function qrZxing() {
+	M.plugin('qr').scan({
+		libType: "Zxing",
+        callback: function( result, setting ) {
+			alert(JSON.stringify(result));
+
+        }
+	});
+
+}
+</script>
+</body>
+</html>

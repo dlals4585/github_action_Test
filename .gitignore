@@ -1,0 +1,17 @@
+.DS_Store
+
+
+.gradle/
+.idea/
+bin/
+gen/
+android/app/build
+
+
+ios/project/*.xcworkspace
+ios/project/*.xcodeproj/**
+!ios/project/*.xcodeproj/project.pbxproj
+ios/project/Pods
+
+node_modules/
+

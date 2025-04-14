@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+	<title>Guide App</title>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<script type="text/javascript" src="../../js/mcore.min.js"></script>
+	<script type="text/javascript" src="../../js/ui/api/common.js"></script>
+</head>
+<body>
+
+<!-- Header Start -->
+<header id="header">
+	<h1>API</h1>
+	<button type="button" class="tbtn_l tbtn_prev">이전</button>
+	<p class="tbtn_r">
+		<button type="button" class="tbtn_home">홈</button>
+		<button type="button" class="tbtn_menu">전체메뉴</button>
+	</p>
+</header>
+<!--// Header End -->
+
+<h4>캡쳐방지</h4>
+<ul>
+	<li><button id="btnSetSecureCapture_Y">캡쳐방지_설정</button></li><br>
+	<li><button id="btnSetSecureCapture_N">캡쳐방지_해제</button></li><br>
+</ul>
+
+<h4>캡쳐방지</h4>
+<ul>
+	<li><button id="btnSetCopy_Y">복사방지_해제</button></li><br>
+	<li><button id="btnSetCopy_N">복사방지_설정</button></li><br>
+</ul>
+
+<div id="container" class="submain api">
+	<section id="scroll">
+		<div>
+		<!-- scroll 영역 -->
+
+<button data-function>protect screen</button>
+<pre>
+M.plugin('protect').screen({
+	enabled : true,
+    callback : function( status, result ) {
+        console.log("status::"+status);
+	alert("result::"+JSON.stringify(result));
+    }
+});
+</pre>
+
+<button data-function>protect screen</button>
+<pre>
+M.plugin('protect').screen({
+	enabled : false,
+    callback : function( status, result ) {
+        console.log("status::"+status);
+	alert("result::"+JSON.stringify(result));
+    }
+});
+</pre>
+
+<button data-function>protect paste</button>
+<pre>
+M.plugin('protect').paste({
+	enabled : true,
+    callback : function( status, result ) {
+        console.log("status::"+status);
+	alert("result::"+JSON.stringify(result));
+    }
+});
+
+</pre>
+<button data-function>protect paste</button>
+<pre>
+M.plugin('protect').paste({
+	enabled : false,
+    callback : function( status, result ) {
+        console.log("status::"+status);
+	alert("result::"+JSON.stringify(result));
+    }
+});
+
+</pre>
+
+		</div>
+	</section>
+</div>
+
+<!-- 전체메뉴 레이어팝업: Start -->
+<div id="popWrap" class="none"></div>
+<!--// 전체메뉴 레이어팝업: End -->
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+def morpheus_pods
+  pod 'MCore', :path => '../../node_modules/@morpheus/core/ios'
+  pod 'MDb', :path => '../../node_modules/@morpheus/addon-db/ios'
+  pod 'MFileIO', :path => '../../node_modules/@morpheus/addon-file/ios'
+  pod 'MMedia', :path => '../../node_modules/@morpheus/addon-media/ios'
+  pod 'MNet', :path => '../../node_modules/@morpheus/addon-net/ios'
+  pod 'MNetExt', :path => '../../node_modules/@morpheus/addon-netext/ios'
+  pod 'MPopup', :path => '../../node_modules/@morpheus/addon-popup/ios'
+  pod 'MZip', :path => '../../node_modules/@morpheus/addon-zip/ios'
+end
+
+target 'newTemplate' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Morpheus Library
+  morpheus_pods
+
+  # Add Your Pods Here
+
+end

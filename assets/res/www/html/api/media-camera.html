@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+	<title>Guide App</title>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<script type="text/javascript" src="../../js/mcore.min.js"></script>
+	<script type="text/javascript" src="../../js/ui/api/common.js"></script>
+</head>
+<body>
+
+<div>
+	<!--<img src="./images/200x200.png" alt="My Image">-->
+
+</div>
+<!-- Header Start -->
+<header id="header">
+	<h1>API</h1>
+	<button type="button" class="tbtn_l tbtn_prev">이전</button>
+	<p class="tbtn_r">
+		<button type="button" class="tbtn_home">홈</button>
+		<button type="button" class="tbtn_menu">전체메뉴</button>
+	</p>
+</header>
+<!--// Header End -->
+
+<div id="container" class="submain api">
+	<section id="scroll">
+
+		<div>
+		<!-- scroll 영역 -->
+
+			<FORM>
+				<INPUT type="button" value='화면이동 (NEW_SCR) ' onclick='moveHtml()'>
+			</FORM>
+
+			<FORM style="margin-top:20px">
+				<INPUT type="button" value='Zbar ' onclick='qrZbar()'>
+			</FORM>
+			<FORM style="margin-top:20px">
+				<INPUT type="button" value='Zxing ' onclick='qrZxing()'>
+			</FORM>
+			<FORM style="margin-top:20px">
+				<INPUT type="button" value='파라미터 비어있음' onclick='qrEmpty()'>
+			</FORM>
+			<FORM style="margin-top:20px">
+				<INPUT type="button" value='파라미터 없음' onclick='qrNone()'>
+			</FORM>
+			<FORM style="margin-top:20px">
+				<INPUT type="button" value='파라미터 이상한 값 ' onclick='qrAnother()'>
+			</FORM>
+
+
+			<div style="margin-top:20px">
+				<!--<img id="image" src="/media/origin.jpg" alt="품질사진">-->
+			</div>
+
+			<FORM style="margin-top:20px">
+				<INPUT type="button" value='이미지 가져오기 ' onclick='getImage()'>
+			</FORM>
+
+			<button data-function>M.media.image_picker</button>
+			<pre>
+				picker1();
+			</pre>
+
+			<button data-function>M.media.picker</button>
+			<pre>
+				picker();
+			</pre>
+
+			<button data-function>QR Reader</button>
+			<pre>
+				qr();
+			</pre>
+
+			<button data-function>Zip API</button>
+			<pre>
+				zip();
+			</pre>
+
+			<button data-function>Optimize</button>
+			<pre>
+				optimize();
+			</pre>
+
+			<button data-function>Info</button>
+			<pre>
+				M.media.info({
+					//path: '/download/20230206_155309.heic',
+					//path: '/media/1683605464251.jpg',
+					path: '/media/1683605464251.jpg',
+					mediaType: 'PHOTO',
+					callback: function( status, result ) {
+						console.log( status, result );
+					}
+				});
+			</pre>
+
+			<button data-function>Camera 이용 (Photo 촬영) + optimize</button>
+			<pre>
+				MediaInfo();
+			</pre>
+
+			<button data-function>전화번호::</button>
+			<pre>
+				var result = "";
+				<!--result = M.info.device("comm.phone");-->
+				<!--result = M.info.device();-->
+				result = M.execute("exWn2InfoPhoneNumber");
+				alert("전화번호 : "+JSON.stringify(result));
+			</pre>
+
+<button data-function>Camera 이용 (Photo 촬영) + optimize</button>
+	<pre>
+		M.media.camera({
+			mode : "PHOTO",
+			path : "/media",
+			allowEdit: false,
+		}, function(status, result, setting) {
+			M.tool.log(status, result);
+			  M.media.optimize({
+				'source': result.path,
+				'destination': '/download/sample.jpg',
+				overwrite: true,
+				'dimension': { width:0.03},
+				'callback': function( result ) {
+						if ( result.error ) {
+								console.log( result.error );
+								return;
+						}
+
+						alert( M.media.get( result.path ) );
+				}
+			});
+
+		});
+</pre>
+
+
+<button data-function>Camera 이용 (Photo 촬영)</button>
+<pre>
+ M.media.camera({
+    mediaType : "PHOTO",
+    path : "/media",
+	allowEdit: false
+}, function(status, result, setting) {
+	M.tool.log(status, result);
+    alert( status + "," + JSON.stringify(result) );
+});
+</pre>
+
+<button data-function>Camera 이용 (Video 촬영)</button>
+<pre>
+M.media.camera({
+    mode : "VIDEO",
+    path : "/media"
+}, function(status, result, setting) {
+	M.tool.log(status, result);
+    alert( status + "," + JSON.stringify(result) );
+});
+</pre>
+
+		</div>
+	</section>
+</div>
+
+<!-- 전체메뉴 레이어팝업: Start -->
+<div id="popWrap" class="none"></div>
+<!--// 전체메뉴 레이어팝업: End -->
+
+<script type="text/javascript">
+M.onReady(function(e) {
+	console.log("M_CORE_MAIN_onReady_onReady");
+});
+
+M.onResume(function(e){
+	console.log("M_CORE_MAIN_onResume_onResume");
+});
+
+M.onPause(function(e){
+	console.log("M_CORE_MAIN_onPause_onPause");
+});
+
+M.onHide(function(e){
+	console.log("M_CORE_MAIN_onHide_onHide");
+});
+
+M.onRestore(function(e) {
+	console.log("M_CORE_MAIN_onRestore_onRestore");
+});
+function MediaInfo(){
+	var image = '../../img/heic1.heic';
+			if(!imageExists(image)) {
+				image = '../img/ico_bank/ico_bank_blank.png';
+			}
+		//path: '/download/sample.jpg'  '/download/20230206_155309.heic'
+		//path: '/download/heic1.heic'
+		//path: '/download/heic2.heic'
+		var mediaInfo = M.media.get({
+			path: '/download/heic1.heic'
+		});
+	alert( JSON.stringify(mediaInfo));
+	document.write("<img src = \"/download/heic2.heic\">");
+}
+
+function moveHtml() {
+	M.page.html(
+		"./second.html",
+		{
+			param:{},
+			actionType:"NEW_SCR",
+			animation:"DEFAULT",
+			orientation:"landscape",
+			delay:0
+		}
+	);
+}
+
+
+function qrZbar() {
+	M.plugin('qr').scan({
+		libType: "Zbar",
+        callback: function( result, setting ) {
+			alert(JSON.stringify(result));
+
+        }
+	});
+
+}
+
+function qrZxing() {
+	M.plugin('qr').scan({
+		libType: "Zxing",
+        callback: function( result, setting ) {
+			alert(JSON.stringify(result));
+
+        }
+	});
+
+}
+
+function qrEmpty() {
+	M.plugin('qr').scan({
+		libType: "",
+        callback: function( result, setting ) {
+			alert(JSON.stringify(result));
+
+        }
+	});
+}
+
+function qrNone() {
+	M.plugin('qr').scan({
+        callback: function( result, setting ) {
+			alert(JSON.stringify(result));
+
+        }
+	});
+}
+
+function qrAnother() {
+	M.plugin('qr').scan({
+		libType: "abcd",
+        callback: function( result, setting ) {
+			alert(JSON.stringify(result));
+
+        }
+	});
+}
+
+function getImage() {
+	var result = M.file.list({
+		path: 'doc://images'
+	});
+	if(result.status !== 'FAIL') {
+		if(result.list.length > 0){
+			var srcPath = "";
+			for(var i=0 ; i<result.list.length ; i++) {
+				var item = result.list[i];
+				document.getElementById('image').src = item.source;
+				srcPath = item.path;
+
+			}
+			alert(srcPath);
+
+
+		}
+	}
+
+}
+
+var mediapickerResult; // 최초 첨부선택한 결과값
+function picker() {
+//mode : "SINGLE",
+    //media : 'PHOTO',
+    //path: "/media",
+
+	M.media.picker({
+    media : 'PHOTO',
+    mode : "SINGLE",
+	}, function(status, result, option) {
+		if(status=='SUCCESS') {
+			alert( status +", result:" +JSON.stringify(result)  );
+		} else {
+			alert( status + ", " );
+		}
+	});
+}
+
+function picker1() {
+	M.media.imagePicker({
+	paging:false,
+	pagingCount : 20,
+	maxCount : 4,
+            callback : function(status, result , setting){
+            alert( status +", result:" +JSON.stringify(result)  );
+                //console.log(status, result, setting);
+            }
+        });
+
+}
+
+function qr() {
+	M.plugin('qr').scan({
+	   captureScale: {width:1.0, height:1.0},
+	   useGuideLine : true,
+	   callback: function( result, setting ) {
+			 alert(JSON.stringify(result));
+	   },
+	});
+
+}
+
+function zip() {
+	var list = M.file.list('doc://MCore_Log').list;
+
+	M.zip.zip({
+    path: '/zip/MCore_Log.zip',
+    overwrite: true,
+    list: list,
+    indicator: false,
+    password: '',
+    callback: function( status, result ) {
+        alert(JSON.stringify( result ));
+    }
+});
+}
+
+function optimize() {
+	//M.media.optimize({
+    //'source': '/download/origin.jpg',
+    //'source': '/download/20230206_155309.heic',
+    //'destination': '/download/20230207_heic2.png',
+    //'dimension': { width:200, height:200 },
+    //'callback': function( result ) {
+    //    alert(JSON.stringify( result ));
+    //    document.write("<img src = \"/download/20230207_heic1.png\">");
+    //}
+//});
+	var data = {};
+		data.screenID = "list.html"
+		data.func = "sync";
+
+		var result = M.execute("callNativeSync", data);
+		alert(JSON.stringify(result));
+}
+
+
+	/**
+ * 이미지 파일이 존재하는지 체크
+ * @param image_url
+ * @returns {Boolean}
+ */
+function imageExists(image_url){
+	var http = new XMLHttpRequest();
+	http.open('HEAD', image_url, false);
+	http.send();
+	alert(http.status);
+	return http.status == 200;
+}
+
+function onScreenSizeChanged(data){
+	alert(JSON.stringify(data));
+}
+
+</script>
+</body>
+</html>

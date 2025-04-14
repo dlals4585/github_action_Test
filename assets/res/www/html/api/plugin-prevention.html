@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>Guide App</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <script type="text/javascript" src="../../js/mcore.min.js"></script>
+    <script type="text/javascript" src="../../js/ui/api/common.js"></script>
+</head>
+<body>
+
+<!-- Header Start -->
+<header id="header">
+    <h1>API</h1>
+    <button type="button" class="tbtn_l tbtn_prev">이전</button>
+    <p class="tbtn_r">
+        <button type="button" class="tbtn_home">홈</button>
+        <button type="button" class="tbtn_menu">전체메뉴</button>
+    </p>
+</header>
+<!--// Header End -->
+
+<div id="container" class="submain api">
+    <section id="scroll">
+        <div>
+            <!-- scroll 영역 -->
+
+            <button data-function>루팅 체크</button>
+            <pre>
+var result = M.plugin('prevention').rooting();
+
+if ( result.status === 'SUCCESS' ) {
+    if ( result.rooting === true ) {
+    console.log( '루팅폰 입니다.' )
+    }
+    else {
+    console.log( '루팅폰이 아닙니다' );
+    }
+}
+else {
+    if ( result.error ) {
+    console.log( result.error );
+    }
+    else {
+    console.log( JSON.stringify( result ) );
+    }
+}
+</pre>
+
+            <button data-function>앱 위변조 체크</button>
+            <pre>
+M.plugin('prevention').fraud(
+{
+    callback : function(event) {
+        console.log("event::"+event);
+        if (event.status === 'SUCCESS') {
+            if (event.rooting === true) {
+                console.log('루팅폰 입니다.')
+            } else {
+                if (event.valid === false) {
+                    alert('앱이 유효하지 않습니다\n 계속 실행할 수 없어 종료합니다.');
+                    //M.sys.exit();
+                } else {
+                    console.log('유효한 앱입니다.');
+                    M.page.html("main.html", {
+                        delay : 500,
+                        action : "NEW_SCR",
+                        orient : "PORT",
+                        animation : "DEFAULT"
+                    });
+                }
+            }
+        } else {
+            if (event.error) {
+                console.log("error::"+event.error);
+                alert('앱이 유효하지 않습니다\n 계속 실행할 수 없어 종료합니다.');
+                //M.sys.exit();
+            } else {
+                alert("alert::"+JSON.stringify(event));
+            }
+        }
+    }
+});
+
+</pre>
+
+        </div>
+    </section>
+</div>
+
+<!-- 전체메뉴 레이어팝업: Start -->
+<div id="popWrap" class="none"></div>
+<!--// 전체메뉴 레이어팝업: End -->
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

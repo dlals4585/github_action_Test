@@ -1,0 +1,26 @@
+{
+  "name": "newTemplate",
+  "version": "1.0.0",
+  "description": "Hybrid Mobill Application Morpheus",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sync": "morpheus sync",
+    "postinstall": "morpheus sync"
+  },
+  "keywords": [],
+  "dependencies": {
+    "@morpheus/addon-db": "2.14.14",
+    "@morpheus/addon-file": "2.14.21",
+    "@morpheus/addon-media": "2.15.45",
+    "@morpheus/addon-net": "2.14.25",
+    "@morpheus/addon-netext": "2.14.37",
+    "@morpheus/addon-popup": "2.14.35",
+    "@morpheus/addon-zip": "2.14.5",
+    "@morpheus/core": "2.18.57"
+  },
+  "devDependencies": {
+    "@morpheus/cli": "1.0.3"
+  },
+  "author": "",
+  "license": "ISC"
+}

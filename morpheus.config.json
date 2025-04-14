@@ -1,0 +1,8 @@
+{
+  "projectName": "newTemplate",
+  "applicationId": "mcore.edu.*",
+  "androidAppName": "testproject2",
+  "androidPackageName": "mcore.edu.testproject2",
+  "iosAppName": "testproject2",
+  "iosBundleId": "mcore.edu.testproject2"
+}

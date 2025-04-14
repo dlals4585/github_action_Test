@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+	<title>Guide App</title>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<script type="text/javascript" src="../../js/mcore.min.js"></script>
+	<script type="text/javascript" src="../../js/ui/api/common.js"></script>
+</head>
+<body>
+<!-- Header Start -->
+<header id="header">
+	<h1>API</h1>
+	<button type="button" class="tbtn_l tbtn_prev">이전</button>
+	<p class="tbtn_r">
+		<button type="button" class="tbtn_home">홈</button>
+		<button type="button" class="tbtn_menu">전체메뉴</button>
+	</p>
+</header>
+<!--// Header End -->
+
+<div id="container" class="submain api">
+	<section id="scroll">
+		<div>
+		<!-- scroll 영역 -->
+
+			<button data-function>Media cropp </button>
+			<pre>
+				M.execute("exImportFilePath","callbackFunc");
+			</pre>
+
+
+
+
+<button data-function>Media (imagepicker) 정보 </button>
+<pre>
+M.media.imagePicker({
+	paging:false,
+	pagingCount : 20,
+	maxCount : 4,
+	callback : function(status, result , setting){
+	alert( status +", result:" +JSON.stringify(result)  );
+		//console.log(status, result, setting);
+	}
+});
+<!--M.media.imagepicker({-->
+<!--    paging:false,-->
+<!--	pagingCount : 20,-->
+<!--	maxCount : 4,-->
+<!--	callback : function(status, result , setting){-->
+<!--	alert( status +", result:" +JSON.stringify(result)  );-->
+<!--		//console.log(status, result, setting);-->
+<!--	var jsonObj		= new Object();-->
+<!--	var img = document.createElement("IMG");-->
+<!--		$("#image-output-2").append( $(img) );-->
+<!--	}-->
+<!--});-->
+
+</pre>
+
+<div id="image-output-2" class="output"></div>
+<button data-function>Media (PHOTO) 정보 </button>
+<pre>
+M.media.picker({
+    media: "ALL",   //"ALL",//PHOTO
+    choice: "SINGLE"   //"SINGLE"//MULTI
+}, function(status, result) {
+	var jsonObj		= new Object();
+	var img = document.createElement("IMG");
+	jsonObj = JSON.stringify(result);
+	alert( status + ", " + jsonObj);
+
+	img.src = result.path; //SINGLE
+
+	var jsonDecode = JSON.parse(jsonObj);
+	//img.src = jsonDecode[0].path; //MULTI
+	$("#image-output-1").append( $(img) );
+});
+</pre><div id="image-output-1" class="output"></div>
+
+<button data-function>Media (PHOTO) 정보 + 다중 선택</button>
+<pre>
+M.media.picker({
+    media: "PHOTO",
+    choice: "MULTI",
+	column:3
+}, function(status, result) {
+	M.tool.log(status, result);
+    alert( status + ", " + JSON.stringify(result) );
+});
+</pre>
+
+<button data-function>Media (PHOTO) 사진 자르기</button>
+<pre>
+M.media.crop({
+	'source': '/download/sample.png',
+	'destination': '/download/sample_croped.png',
+	'dimension': { width:200, height:200 },
+	'format': 'PNG',
+	'callback': function( result ) {
+		if ( result.error ) {
+			alert( "에러::"+result.error );
+			return;
+		}
+		alert("콜백 ::" + M.media.get( result.path ) );
+	}
+});
+</pre>
+
+<button data-function>Media (VIDEO) 정보 </button>
+<pre>
+M.media.picker({
+    media: "VIDEO",
+    choice: "SINGLE"
+}, function(status, result) {
+	M.tool.log(status, result);
+    alert( status + ", " + JSON.stringify(result) );
+});
+</pre>
+
+<button data-function>Media (VIDEO) 정보 + 다중 선택</button>
+<pre>
+M.media.picker({
+    media: "VIDEO",
+    choice: "MULTI"
+}, function(status, result) {
+	M.tool.log(status, result);
+    alert( status + ", " + JSON.stringify(result) );
+});
+</pre>
+
+			<button data-function>ispath()</button>
+			<pre>
+			M.execute("ispath");
+</pre>
+
+
+
+		</div>
+	</section>
+</div>
+
+<!-- 전체메뉴 레이어팝업: Start -->
+<div id="popWrap" class="none"></div>
+<!--// 전체메뉴 레이어팝업: End -->
+
+<script type="text/javascript">
+	function callbackFunc( result ){
+      alert( JSON.stringify(result) + " \n\n prefix방식");
+    }
+</script>
+</body>
+</html>

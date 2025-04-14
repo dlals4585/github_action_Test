@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+	<title>두번째 화면</title>
+	<script type="text/javascript" src="../../js/mcore.min.js"></script>
+</head>
+
+<body>
+<h1>두번째 화면</h1>
+
+
+<FORM>
+	<INPUT type="button" value='화면이동 (NEW_SCR) ' onclick='moveHtml()'>
+</FORM>
+
+<FORM style="margin-top:20px">
+	<INPUT type="button" value='QR Zbar ' onclick='qrZbar()'>
+</FORM>
+<FORM style="margin-top:20px">
+	<INPUT type="button" value='QR Zxing ' onclick='qrZxing()'>
+</FORM>
+
+</body>
+
+
+<script type="text/javascript">
+
+function qrZbar() {
+	M.plugin('qr').scan({
+		flash: false,
+        callback: function( result, setting ) {
+			alert(JSON.stringify(result));
+
+        }
+	});
+
+}
+
+function qrZxing() {
+	M.plugin('qr').scan({
+		flash: true,
+        callback: function( result, setting ) {
+			alert(JSON.stringify(result));
+
+        }
+	});
+
+<!--	M.plugin('qr').scan({-->
+<!--		libType: true,-->
+<!--        callback: function( result, setting ) {-->
+<!--			alert(JSON.stringify(result));-->
+
+<!--        }-->
+<!--	});-->
+
+}
+
+
+function moveHtml() {
+<!--	var callback = M.response.on( function( result ) {-->
+<!--		alert(JSON.stringify(result));-->
+<!--	}).toString()-->
+
+<!--	M.page.activity({-->
+<!--		className: "WebviewActivity",-->
+<!--		param: { "requestURL": "file:///android_asset/res/www/html/second.html", "callback":callback},-->
+<!--		actionType: "NEW_SCR",-->
+<!--		orientation: "DEFAULT"-->
+<!--	});-->
+
+	M.page.html(
+		"./third.html",
+		{
+			param:{},
+			actionType:"NEW_SCR",
+			animation:"DEFAULT",
+			orientation:"landscape",
+			delay:0
+		}
+	);
+
+}
+
+M.onReady(function(e) {
+
+});
+
+M.onHide(function(e){
+
+});
+
+M.onRestore(function(e) {
+
+});
+
+</script>
+
+</html>

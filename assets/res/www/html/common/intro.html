@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+	<title>Guide App</title>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+	<script type="text/javascript" src="../../js/mcore.min.js"></script>
+</head>
+
+<script>
+	function test(result){
+		console.log(result);
+	}
+</script>
+<body>
+
+	<div id="intro" class="hbox jc">
+		<div class="flex">
+			<h1><img src="../../img/logo_brand.png" alt="Brand" /></h1>
+			<p>Mobile Enterprise Application Platform</p>
+			<p class="app-version"><script>document.write( M.info.app().app.version );</script></p>
+			
+			<div class="intro-logo">
+				<img src="../../img/logo_company.png" alt="Company" />
+			</div>
+		</div>
+	</div>
+
+</body>
+
+<script type="text/javascript">
+M.onReady(function(evt){
+	<!--M.page.html("main.html", {
+		delay: 500,
+		action:"NEW_SCR",
+		orient:"PORT",
+		animation:"DEFAULT"
+	});-->
+});
+
+M.onRestore(function(e) {
+	M.page.html("main.html", {
+		delay: 500,
+		action:"NEW_SCR",
+		orient:"PORT",
+		animation:"DEFAULT"
+	});
+});
+
+M.onBack(function(evt){
+	M.page.back();
+});
+</script>
+
+</html>

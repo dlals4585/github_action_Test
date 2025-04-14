@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+	<title>Guide App</title>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<script type="text/javascript" src="../../js/mcore.min.js"></script>
+	<script type="text/javascript" src="../../js/ui/api/common.js"></script>
+</head>
+<body>
+<!-- Header Start -->
+<header id="header">
+	<h1>API</h1>
+	<button type="button" class="tbtn_l tbtn_prev">이전</button>
+	<p class="tbtn_r">
+		<button type="button" class="tbtn_home">홈</button>
+		<button type="button" class="tbtn_menu">전체메뉴</button>
+	</p>
+</header>
+<!--// Header End -->
+
+<div>
+	<input type="text">
+</div>
+<div id="container" class="submain api">
+	<section id="scroll">
+		<div>
+			<button data-function>카카오 로그인 확인</button>
+			<pre>
+				//{"status":"SUCCESS","result":"{\"result\":\"OK\"}"}
+				M.plugin('3rd_kakao').auth({
+					command: 'availablelogin',
+					callback:function(status, result){
+						//console.log(status);
+						alert(JSON.stringify(result));
+				 	}
+				});
+		</pre>
+		</div>
+
+		<div>
+		<button data-function>카카오 로그인 </button>
+		<pre>
+		M.plugin('3rd_kakao').auth({
+            command: 'login',
+            callback:function(status, result){
+                //console.log(result);
+				alert(JSON.stringify(result));
+             }
+        });
+		</pre>
+		</div>
+
+		<div>
+		<button data-function>카카오 계정으로 로그인 </button>
+		<pre>
+		M.plugin('3rd_kakao').auth({
+            command: 'loginaccount',
+            callback:function(status, result){
+                //console.log(result);
+				alert(JSON.stringify(result));
+             }
+        });
+		</pre>
+		</div>
+
+		<div>
+		<button data-function>카카오 로그아웃</button>
+		<pre>
+		M.plugin('3rd_kakao').auth({
+			command: 'logout',
+			callback:function(status, result){
+				//console.log(result);
+			alert(JSON.stringify(result));
+			 }
+		});
+		</pre>
+		</div>
+
+		<div>
+		<button data-function>카카오 앱연결</button>
+		<pre>
+			var params = {};
+			params.nickname='테스트';
+			params.profile_image='';
+			params.thumbnail_image='';
+
+			M.plugin('3rd_kakao').auth({
+				command: 'signup',
+				param: params,
+				callback:function(status, result){
+					//console.log(result);
+			alert(JSON.stringify(result));
+				 }
+			});
+		</pre>
+		</div>
+
+		<div>
+		<button data-function>카카오 앱연결 해제</button>
+		<pre>
+			M.plugin('3rd_kakao').auth({
+			command: 'unlink',
+			callback:function(status, result){
+				//console.log(result);
+			alert(JSON.stringify(result));
+			 }
+		});
+		</pre>
+		</div>
+
+		<div>
+		<button data-function>카카오 정보조회</button>
+		<pre>
+		M.plugin('3rd_kakao').auth({
+		command: 'getinfo',
+		callback:function(status, result){
+		//console.log(result);
+			alert(JSON.stringify(result));
+		}
+		});
+		</pre>
+		</div>
+
+		<div>
+		<button data-function>카카오 정보저장</button>
+		<pre>
+			var params = {};
+			params.nick_name='테스트';
+
+			M.plugin('3rd_kakao').auth({
+				command: 'setinfo',
+				param: params,
+				callback:function(status, result){
+					//console.log(result);
+			alert(JSON.stringify(result));
+				 }
+			});
+		</pre>
+		</div>
+
+		<div>
+		<button data-function>앱토큰 유무</button>
+		<pre>
+			M.plugin('3rd_kakao').auth({
+				command: 'hastoken',
+				callback:function(status, result){
+					//console.log(result);
+					alert(JSON.stringify(result));
+				 }
+			});
+		</pre>
+		</div>
+
+		<div>
+		<button data-function>앱토큰 가져오기</button>
+		<pre>
+			M.plugin('3rd_kakao').auth({
+				command: 'gettoken',
+				callback:function(status, result){
+					alert(JSON.stringify(result));
+				 }
+			});
+		</pre>
+		</div>
+
+	<div>
+	<button data-function>앱해쉬 가져오기</button>
+	<pre>
+		M.plugin('3rd_kakao').auth({
+			command: 'getapphash',
+			callback: function( status, result ) {
+				alert(JSON.stringify(result));
+
+			}
+		});
+	</pre>
+	</div>
+
+F
+		<div>
+			<button data-function>Kakao Link API </button>
+			<pre>
+
+				var params={};
+				params.text="메시지 전달 테스트";
+				params.image={};
+				params.image.url="http://dev.uracle.co.kr/1.jpg";
+				params.image.width=120;
+				params.image.height=120;
+				params.webLink={};
+				params.webLink.text="웹링크 텍스트";
+				params.webLink.url="www.morpheus.kr";
+
+		M.plugin('3rd_kakao').link({
+			param: params,
+			callback: function( status, result ) {
+				alert(JSON.stringify(result));
+			}
+		});
+				//callback: "callbackFunc"
+	</pre>
+		</div>
+
+
+	</section>
+</div>
+
+<script type="text/javascript">
+ function callbackFunc( result ){
+ console.log("result::"+JSON.stringify(result));
+  alert( JSON.stringify(result));
+}
+</script>
+</body>
+</html>

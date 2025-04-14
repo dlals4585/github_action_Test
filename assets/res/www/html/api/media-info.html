@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+	<title>Guide App</title>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<script type="text/javascript" src="../../js/mcore.min.js"></script>
+	<script type="text/javascript" src="../../js/ui/api/common.js"></script>
+</head>
+<body>
+
+<!-- Header Start -->
+<header id="header">
+	<h1>API</h1>
+	<button type="button" class="tbtn_l tbtn_prev">이전</button>
+	<p class="tbtn_r">
+		<button type="button" class="tbtn_home">홈</button>
+		<button type="button" class="tbtn_menu">전체메뉴</button>
+	</p>
+</header>
+<!--// Header End -->
+
+<div id="container" class="submain api">
+	<section id="scroll">
+		<div>
+		<!-- scroll 영역 -->
+			<button data-function>QR Code</button>
+			<pre>
+				qrcode();
+			</pre>
+
+
+
+<button data-function>Media 정보 (PHOTO)</button>
+<pre>
+M.media.info({
+    mediaType : "PHOTO",
+    path  : "/",
+}, function(status, result) {
+	M.tool.log(status, result);
+    alert( status + ", " + JSON.stringify(result) );
+});
+</pre>
+
+<button data-function>Media 정보 (VIDEO)</button>
+<pre>
+M.media.info({
+    mediaType : "VIDEO",
+    path  : "/",
+}, function(status, result) {
+	M.tool.log(status, result);
+    alert( status + ", " + JSON.stringify(result) );
+});
+</pre>
+
+
+<button data-function>Media 앨범으로 저장</button>
+<pre>
+M.media.album({
+    path: "/storage/emulated/0/Download/PXL_20230731_001005430.jpg",   		//"/media/1694743735198.jpg",
+    onfinish: function(status, result, option) {
+        if (status == 'SUCCESS') {
+            var photo_path = result.path;
+            var photo_name = result.name;
+			alert( status + ", " + JSON.stringify(result) );
+        }
+    }
+});
+</pre>
+
+		</div>
+	</section>
+</div>
+
+<!-- 전체메뉴 레이어팝업: Start -->
+<div id="popWrap" class="none"></div>
+<!--// 전체메뉴 레이어팝업: End -->
+
+<script type="text/javascript">
+
+	function qrcode() {
+
+		M.page.html({
+			url:'./media-record.html'
+		});
+
+	}
+
+</script>
+</body>
+</html>
