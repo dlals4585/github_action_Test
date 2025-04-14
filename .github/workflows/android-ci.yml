@@ -39,7 +39,7 @@ jobs:
         run: ./gradlew testDebug
 
       - name: APK 업로드
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v2
         with:
           name: app-debug
           path: app/build/outputs/apk/debug/app-debug.apk
