@@ -22,23 +22,23 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install required Android SDK components
+      - name: Install SDK Components
         run: |
           yes | sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
-      - name: Grant permissions to gradlew
+      - name: Gradlew 권한 부여
         run: chmod +x ./gradlew
 
       - name: Gradle 캐시 설정
         uses: gradle/gradle-build-action@v2
 
-      - name: 앱 빌드
+      - name: Debug APK 빌드
         run: ./gradlew assembleDebug
 
-      - name: Run Unit Tests
+      - name: 유닛 테스트 실행
         run: ./gradlew testDebug
 
-      - name: Upload APK
+      - name: APK 업로드
         uses: actions/upload-artifact@v3
         with:
           name: app-debug
