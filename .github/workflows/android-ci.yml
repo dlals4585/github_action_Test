@@ -62,7 +62,7 @@ jobs:
           cd release_output && zip ../app-release.zip *
 
       - name: 리스트 확인
-        run: ls -al debug-apk.zip
+        run: ls -al app-release.zip
 
       - name: Create Tag (Auto)
         id: tagger
