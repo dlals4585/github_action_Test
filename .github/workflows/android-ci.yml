@@ -64,15 +64,25 @@ jobs:
       - name: 리스트 확인
         run: ls -al app-release.zip
 
-      - name: Create Tag (Auto)
-        id: tagger
+      - name: Install GitHub CLI
+        run: sudo apt-get install gh -y
+
+#      - name: Create Tag (Auto)
+#        id: tagger
+#        run: |
+#          git config --global user.name "CI Bot"
+#          git config --global user.email "ci@example.com"
+#          export TAG_NAME=auto-$(date +'%Y%m%d-%H%M%S')
+#          echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+#          git tag $TAG_NAME
+#          git push origin $TAG_NAME
+
+      - name: Create GitHub Release with tag
         run: |
-          git config --global user.name "CI Bot"
-          git config --global user.email "ci@example.com"
-          export TAG_NAME=auto-$(date +'%Y%m%d-%H%M%S')
-          echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
-          git tag $TAG_NAME
-          git push origin $TAG_NAME
+          TAG=auto-$(date +'%Y%m%d-%H%M%S')
+          gh release create "$TAG" app-release.zip --title "$TAG" --notes "Auto release"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub Release & Upload APK ZIP
         uses: softprops/action-gh-release@v1
