@@ -34,9 +34,6 @@ jobs:
         with:
           node-version: '18'
 
-#      - name: npm install
-#        run: npm install
-
       - name: Install SDK Components
         run: |
           yes | sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
@@ -53,11 +50,6 @@ jobs:
       - name: Release Build
         run: ./gradlew assembleRelease
 
-#      - name: APK zip 만들기
-#        run: |
-#          mkdir -p output
-#          cp android/app/build/outputs/apk/debug/app-debug.apk output/
-#          cd output && zip ../debug-apk.zip *
       - name: Create ZIP from APK
         run: |
           mkdir -p release_output
@@ -70,26 +62,28 @@ jobs:
       - name: Install GitHub CLI
         run: sudo apt-get install gh -y
 
-#      - name: Create Tag (Auto)
-#        id: tagger
-#        run: |
-#          git config --global user.name "CI Bot"
-#          git config --global user.email "ci@example.com"
-#          export TAG_NAME=auto-$(date +'%Y%m%d-%H%M%S')
-#          echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
-#          git tag $TAG_NAME
-#          git push origin $TAG_NAME
-
+      #태그 생성
       - name: Create Tag
         id: tagger
         run: |
           echo "TAG_NAME=auto-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
 
+      #릴리즈 자동화 + 자동 릴리즈를 prerelease로 설정
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.TAG_NAME }}
           name: Release ${{ env.TAG_NAME }}
-          files: app-release.zip
+          prerelease: true
+          files: app-${{ env.TAG_NAME }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      #최근 3개의 릴리즈만 남기고 태그포함 자동삭제
+      - name: Delete Old Auto Releases
+        uses: dev-drprasad/delete-older-releases@v0.2.0
+        with:
+          keep_latest: 3
+          delete_tags: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

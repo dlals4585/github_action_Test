@@ -63,7 +63,7 @@
     </network>
     <application>
         <android>
-            <hardwareaccelerated>n</hardwareaccelerated>
+            <hardwareaccelerated>y</hardwareaccelerated>
             <user-theme>n</user-theme>
             <use-youtube>n</use-youtube>
         </android>
