@@ -55,11 +55,11 @@ jobs:
 #      - name: 리스트 확인
 #        run: ls -al debug-apk.zip
 
-      - name: APK 업로드
-        uses: actions/upload-artifact@v3.1.2
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
         with:
           name: app-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
 
       - name: Release Build
         run: ./gradlew assembleRelease
