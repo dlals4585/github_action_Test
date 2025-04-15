@@ -6,6 +6,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
@@ -20,7 +23,7 @@ jobs:
           distribution: 'corretto'
           java-version: '17'
 
-      - name: Gradlew 권한 부여
+      - name: Grant gradlew permission
         run: chmod +x ./gradlew
 
       - name: Set up Android SDK
@@ -77,17 +80,16 @@ jobs:
 #          git tag $TAG_NAME
 #          git push origin $TAG_NAME
 
-      - name: Create GitHub Release with tag
+      - name: Create Tag
+        id: tagger
         run: |
-          TAG=auto-$(date +'%Y%m%d-%H%M%S')
-          gh release create "$TAG" app-release.zip --title "$TAG" --notes "Auto release"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          echo "TAG_NAME=auto-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
 
-      - name: Create GitHub Release & Upload APK ZIP
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.tagger.outputs.tag_name }}
+          tag_name: ${{ env.TAG_NAME }}
+          name: Release ${{ env.TAG_NAME }}
           files: app-release.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
