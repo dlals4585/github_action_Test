@@ -27,8 +27,8 @@ jobs:
         with:
           node-version: '18'
 
-      - name: npm install
-        run: npm install
+#      - name: npm install
+#        run: npm install
 
 #      - name: node_modules 설치
 #        run: npm install
