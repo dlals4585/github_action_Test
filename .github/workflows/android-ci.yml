@@ -25,11 +25,11 @@ jobs:
       - name: Node 설치
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # or your project's version
+          node-version: '18'
 
-      - name: node_modules 설치
-        run: npm install
-        working-directory: android/app
+#      - name: node_modules 설치
+#        run: npm install
+#        working-directory: android/app
 
       - name: Install SDK Components
         run: |
