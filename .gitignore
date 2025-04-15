@@ -15,3 +15,6 @@ ios/project/Pods
 
 node_modules/
 
+# @morpheus만 예외적으로 추적 허용
+!node_modules/@morpheus/
+!node_modules/@morpheus/**/*
