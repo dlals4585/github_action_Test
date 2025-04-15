@@ -46,14 +46,20 @@ jobs:
       - name: 유닛 테스트 실행
         run: ./gradlew testDebug
 
-      - name: APK zip 만들기
-        run: |
-          mkdir -p output
-          cp android/app/build/outputs/apk/debug/app-debug.apk output/
-          cd output && zip ../debug-apk.zip *
+#      - name: APK zip 만들기
+#        run: |
+#          mkdir -p output
+#          cp android/app/build/outputs/apk/debug/app-debug.apk output/
+#          cd output && zip ../debug-apk.zip *
+#
+#      - name: 리스트 확인
+#        run: ls -al debug-apk.zip
 
-      - name: 리스트 확인
-        run: ls -al debug-apk.zip
+      - name: APK 업로드
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: app-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
 
       - name: Release Build
         run: ./gradlew assembleRelease
