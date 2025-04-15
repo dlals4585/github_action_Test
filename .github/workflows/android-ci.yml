@@ -30,10 +30,6 @@ jobs:
 #      - name: npm install
 #        run: npm install
 
-#      - name: node_modules 설치
-#        run: npm install
-#        working-directory: android/app
-
       - name: Install SDK Components
         run: |
           yes | sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
