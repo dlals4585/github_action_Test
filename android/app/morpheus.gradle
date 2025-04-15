@@ -1,10 +1,32 @@
-// !! DO NOT TOUCH THIS FILE 
-apply from: '$rootDir/node_modules/@morpheus/core/android/library.gradle'
-apply from: '$rootDir/node_modules/@morpheus/addon-db/android/library.gradle'
-apply from: '$rootDir/node_modules/@morpheus/addon-file/android/library.gradle'
-apply from: '$rootDir/node_modules/@morpheus/addon-media/android/library.gradle'
-apply from: '$rootDir/node_modules/@morpheus/addon-net/android/library.gradle'
-apply from: '$rootDir/node_modules/@morpheus/addon-netext/android/library.gradle'
-apply from: '$rootDir/node_modules/@morpheus/addon-popup/android/library.gradle'
-apply from: '$rootDir/node_modules/@morpheus/addon-zip/android/library.gradle'
-apply from: '$rootDir/node_modules/@morpheus/trd-android-fingerprint-basic/android/library.gradle'
+def morpheusCore = file("$rootDir/node_modules/@morpheus/core/android/library.gradle")
+def morpheusAddon_db = file("$rootDir/node_modules/@morpheus/addon-db/android/library.gradle")
+def morpheusAddon_file = file("$rootDir/node_modules/@morpheus/addon-file/android/library.gradle")
+def morpheusAddon_media = file("$rootDir/node_modules/@morpheus/addon-media/android/library.gradle")
+def morpheusAddon_net = file("$rootDir/node_modules/@morpheus/addon-net/android/library.gradle")
+def morpheusAddon_netext = file("$rootDir/node_modules/@morpheus/addon-netext/android/library.gradle")
+def morpheusAddon_popup = file("$rootDir/node_modules/@morpheus/addon-popup/android/library.gradle")
+def morpheusAddon_zip = file("$rootDir/node_modules/@morpheus/addon-zip/android/library.gradle")
+def morpheusTrd_android_fingerprint_basic = file("$rootDir/node_modules/@morpheus/trd-android-fingerprint-basic/android/library.gradle")
+
+if (morpheusCore.exists()) {
+    apply from: morpheusCore
+    apply from: morpheusAddon_db
+    apply from: morpheusAddon_file
+    apply from: morpheusAddon_media
+    apply from: morpheusAddon_net
+    apply from: morpheusAddon_netext
+    apply from: morpheusAddon_popup
+    apply from: morpheusAddon_zip
+    apply from: morpheusTrd_android_fingerprint_basic
+} else {
+    // !! DO NOT TOUCH THIS FILE
+    apply from: '../../node_modules/@morpheus/core/android/library.gradle'
+    apply from: '../../node_modules/@morpheus/addon-db/android/library.gradle'
+    apply from: '../../node_modules/@morpheus/addon-file/android/library.gradle'
+    apply from: '../../node_modules/@morpheus/addon-media/android/library.gradle'
+    apply from: '../../node_modules/@morpheus/addon-net/android/library.gradle'
+    apply from: '../../node_modules/@morpheus/addon-netext/android/library.gradle'
+    apply from: '../../node_modules/@morpheus/addon-popup/android/library.gradle'
+    apply from: '../../node_modules/@morpheus/addon-zip/android/library.gradle'
+    apply from: '../../node_modules/@morpheus/trd-android-fingerprint-basic/android/library.gradle'
+}
