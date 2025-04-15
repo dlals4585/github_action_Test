@@ -41,7 +41,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Debug APK 빌드
-        run: ./gradlew assembleDebug
+        run: ./gradlew :app:assembleDebug
 
       - name: 유닛 테스트 실행
         run: ./gradlew testDebug
