@@ -61,7 +61,7 @@ jobs:
           git config --global user.email "ci@example.com"
           TAG="auto-$(date +'%Y%m%d%H%M%S')"
           git tag $TAG
-          git push origin $TAG
+          git push origin $TAG 
 
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v1
