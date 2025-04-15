@@ -14,14 +14,15 @@ if (project.rootProject.file('local.properties').exists()) {
 
 
 android {
-    compileSdkVersion 34
+    compileSdk = rootProject.ext.compileSdkVersion
+
     namespace 'mcore.mobile.app'
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         // Sync Your License
         applicationId "mcore.edu.testproject2"
-        minSdkVersion 24
-        targetSdkVersion 34
+        minSdk = rootProject.ext.minSdkVersion
+        targetSdk = rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
