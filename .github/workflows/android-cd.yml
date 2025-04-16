@@ -68,6 +68,9 @@ jobs:
       - name: Build Release APK
         run: ./gradlew assembleRelease
 
+      - name: Build AAB
+        run: ./gradlew bundleRelease
+
       - name: Release to GitHub
         uses: softprops/action-gh-release@v1
         with:
@@ -76,9 +79,6 @@ jobs:
           files: android/app/build/outputs/bundle/release/app-release.aab
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build AAB
-        run: ./gradlew bundleRelease
 
       #Fastlane을 사용한 앱 배포 예시
       # > Fastlane이 Google play developer api를 내부적으로 wrapping해서 사용함
