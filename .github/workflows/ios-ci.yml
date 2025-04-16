@@ -13,4 +13,4 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - run: xcodebuild -workspace MyApp.xcworkspace -scheme MyApp -configuration Release
+      - run: xcodebuild -scheme MyApp -configuration Release
