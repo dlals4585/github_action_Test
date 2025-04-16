@@ -2,6 +2,8 @@ name: Android CD
 
 on:
   push:
+    branches:
+      - release
     tags:
       - 'android-v*'
   inputs:
@@ -71,7 +73,7 @@ jobs:
           packageName: ${{ secrets.PACKAGE_NAME }}
           #releaseFiles: android/app/build/outputs/bundle/release/app-release.aab
           releaseFiles: '**/release/*.aab'
-          track: ${{ github.event.inputs.release_track }}   # ✅ 여기!
+          track: ${{ github.event.inputs.release_track }}
           status: completed
 
 #      #사내 NAS/API 업로드(curl) 예시
