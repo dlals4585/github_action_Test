@@ -6,16 +6,17 @@ on:
       - release
     tags:
       - 'android-v*'
-  inputs:
-    release_track:
-      description: 'Play store 트랙 선택'
-      required: true
-      default: internal
-      type: choice
-      options:
-        - internal
-        - beta
-        - production
+  workflow_dispatch:
+    inputs:
+      release_track:
+        description: 'Play store 트랙 선택'
+        required: true
+        default: internal
+        type: choice
+        options:
+          - internal
+          - beta
+          - production
 
 permissions:
   contents: write
