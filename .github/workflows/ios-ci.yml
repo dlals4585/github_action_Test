@@ -1,0 +1,16 @@
+name: iOS CI
+
+on:
+  push:
+    paths:
+      - 'ios/**'
+      - '.github/workflows/ios-ci.yml'
+    branches:
+      - main
+
+jobs:
+  ios-build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: xcodebuild -workspace MyApp.xcworkspace -scheme MyApp -configuration Release
