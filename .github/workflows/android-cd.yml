@@ -71,15 +71,29 @@ jobs:
       - name: Build AAB
         run: ./gradlew bundleRelease
 
-      - name: Upload AAB to Google Play
-        uses: r0adkll/upload-google-play@v1
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_JSON }}
-          packageName: ${{ secrets.PACKAGE_NAME }}
-          #releaseFiles: android/app/build/outputs/bundle/release/app-release.aab
-          releaseFiles: '**/release/*.aab'
-          track: ${{ github.event.inputs.release_track }}
-          status: completed
+          ruby-version: '3.2'
+
+      - name: Install fastlane
+        run: gem install fastlane
+
+      - name: Upload to Google Play (internal track)
+        run: fastlane internal
+        env:
+          GOOGLE_PLAY_KEY: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_JSON }}
+          PACKAGE_NAME: ${{ secrets.PACKAGE_NAME }}
+
+#      - name: Upload AAB to Google Play
+#        uses: r0adkll/upload-google-play@v1
+#        with:
+#          serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_JSON }}
+#          packageName: ${{ secrets.PACKAGE_NAME }}
+#          #releaseFiles: android/app/build/outputs/bundle/release/app-release.aab
+#          releaseFiles: '**/release/*.aab'
+#          track: ${{ github.event.inputs.release_track }}
+#          status: completed
 
 #      #사내 NAS/API 업로드(curl) 예시
 #      - name: Upload to QA NAS via API
