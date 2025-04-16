@@ -4,7 +4,16 @@ on:
   push:
     tags:
       - 'android-v*'
-  workflow_dispatch:
+  inputs:
+    release_track:
+      description: 'Play 트랙 선택'
+      required: true
+      default: internal
+      type: choice
+      options:
+        - internal
+        - beta
+        - production
 
 permissions:
   contents: write
@@ -62,7 +71,7 @@ jobs:
           packageName: ${{ secrets.PACKAGE_NAME }}
           #releaseFiles: android/app/build/outputs/bundle/release/app-release.aab
           releaseFiles: '**/release/*.aab'
-          track: internal #/alpha/beta/product
+          track: ${{ github.event.inputs.release_track }}   # ✅ 여기!
           status: completed
 
 #      #사내 NAS/API 업로드(curl) 예시
