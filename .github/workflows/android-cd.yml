@@ -3,7 +3,7 @@ name: Android CD
 on:
   push:
     branches:
-      - release
+      - 'release'
     tags:
       - 'android-v*'
   workflow_dispatch:
