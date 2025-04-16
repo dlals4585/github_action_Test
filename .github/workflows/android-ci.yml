@@ -3,6 +3,9 @@ name: Android CI & Auto Release
 
 on:
   push:
+    paths:
+      - 'android/**'
+      - '.github/workflows/android-ci.yml'
     branches:
       - main
 
