@@ -49,9 +49,6 @@ jobs:
         run: |
           yes | sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
-      - name: Grant gradlew permission
-        run: chmod +x ./gradlew
-
       - name: Build Release APK
         run: ./gradlew assembleRelease
 
@@ -64,7 +61,7 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_JSON }}
           packageName: ${{ secrets.PACKAGE_NAME }}
           releaseFile: android/app/build/outputs/bundle/release/app-release.aab
-          track: internal
+          track: internal #/alpha/beta/product
           status: completed
 
 #      #사내 NAS/API 업로드(curl) 예시
