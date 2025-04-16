@@ -76,10 +76,10 @@ jobs:
         with:
           ruby-version: '3.2'
 
-      - name: Install fastlane
+      - name: Install Fastlane
         run: gem install fastlane
 
-      - name: Upload to Google Play (internal track)
+      - name: Deploy to Play Store
         run: fastlane internal
         env:
           GOOGLE_PLAY_KEY: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_JSON }}
