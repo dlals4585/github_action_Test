@@ -35,6 +35,7 @@ jobs:
             ~/.gradle
           key: android-sdk-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}
 
+      # 설치된 SDK의 경로를 설정 + 활성화(빌드마다 실행)
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
@@ -69,7 +70,7 @@ jobs:
         if: contains(github.event.head_commit.message, '[release]')
         run: |
           mkdir -p release_output
-          cp android/app/build/outputs/apk/debug/app-debug.apk release_output/
+          cp android/app/build/outputs/apk/release/app-release.apk release_output/
           cd release_output && zip ../app-release.zip *
 
       - name: List ZIP
@@ -102,3 +103,39 @@ jobs:
           delete_tags: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      #앱스토어 앱배포 예시
+      - name: Build AAB
+        if: contains(github.event.head_commit.message, '[release]')
+        run: ./gradlew bundleRelease
+
+      - name: Upload AAB to Google Play
+        if: contains(github.event.head_commit.message, '[release]')
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_JSON }}
+          packageName: ${{ secrets.PACKAGE_NAME }}
+          releaseFile: android/app/build/outputs/bundle/release/app-release.aab
+          track: internal  # 또는 alpha, beta, production
+          status: completed
+
+#      #사내 NAS/API 업로드(curl) 예시
+#      - name: Upload to QA NAS via API
+#        if: contains(github.event.head_commit.message, '[release]')
+#        run: |
+#          curl -X POST https://사내 업로드 주소 \
+#            -H "Authorization: Bearer ${{ secrets.NAS_API_TOKEN }}" \
+#            -F "file=@app-${{ github.run_number }}.zip"
+#
+#      #사내 NAS/API 업로드(scp) 예시
+#      - name: Upload ZIP to NAS via SCP
+#        if: contains(github.event.head_commit.message, '[release]')
+#        run: |
+#          echo "${{ secrets.NAS_SSH_KEY }}" > id_rsa
+#          chmod 600 id_rsa
+#
+#          scp -i id_rsa -o StrictHostKeyChecking=no \
+#            app-${{ github.run_number }}.zip \
+#            ${{ secrets.NAS_USER }}@${{ secrets.NAS_HOST }}:${{ secrets.NAS_TARGET_PATH }}
+#
+#          rm id_rsa
