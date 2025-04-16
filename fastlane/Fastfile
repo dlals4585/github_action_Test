@@ -7,7 +7,7 @@ platform :android do
   lane :internal do
     upload_to_play_store(
       track: 'internal',
-      aab: 'app/build/outputs/bundle/release/app-release.aab',
+      aab: '**/release/*.aab',
       json_key_data: ENV['GOOGLE_PLAY_KEY'],
       package_name: ENV['PACKAGE_NAME']
     )
