@@ -13,7 +13,7 @@
     if ([aView viewWithTag:INDICATOR_TAG]) {
         [self simpleActivityIndicatorStop:aView];
     }
-    
+    //test2
     UIView* container = [[UIView alloc] initWithFrame:[aView bounds]];
     [container setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     [container setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.25f]];
