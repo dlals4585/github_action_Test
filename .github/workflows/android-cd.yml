@@ -121,9 +121,11 @@ jobs:
 #          name: presigned-url
 #          path: presigned_url.txt
 
-      - name: Release to GitHub
+      - name: Release presigned URL
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: auto-${{ github.run_number }}
+          name: Release auto-${{ github.run_number }}
           files: |
             presigned_url.txt
         env:
