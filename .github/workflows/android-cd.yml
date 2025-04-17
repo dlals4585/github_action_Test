@@ -109,10 +109,10 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.S3_BUCKET_REGION }}
+          AWS_REGION: ap-northeast-2
       - name: Show Presigned URL
         run: |
-          echo "::notice title=Presigned URL::$URL"
+          echo "📦 URL = ${{ steps.presign.outputs.url }}"
       #------------------------------------------------------------------------
 
       #Fastlane을 사용한 앱 배포 예시 (필요 시 별도 수정)
