@@ -106,6 +106,10 @@ jobs:
             --region ap-northeast-2 \
             --expires-in 3600)
           echo "url=$URL" >> $GITHUB_OUTPUT
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.S3_BUCKET_REGION }}
       #------------------------------------------------------------------------
       #Fastlane을 사용한 앱 배포 예시
       # > Fastlane이 Google play developer api를 내부적으로 wrapping해서 사용함
