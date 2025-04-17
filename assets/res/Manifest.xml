@@ -6,18 +6,17 @@
         <base_version>000000</base_version>
         <target>app</target>
         <update>
-            <server />
-            <trcode />
-            <mode />
+            <server>HTTP_PREVENT_API</server>
+            <trcode/>
+            <mode/>
         </update>
     </resource>
     <startpage>
         <name>www/html/api/main.html</name>
-        <!--<name>www/html/index.html</name>-->
         <orient>default</orient>
         <orient-tablet>default</orient-tablet>
     </startpage>
-    <settings />
+    <settings/>
     <default_action>
         <orient>default</orient>
         <orient-tablet>default</orient-tablet>
@@ -45,7 +44,6 @@
             <HTTP_PREVENT_API>
                 <path>mcore.mobile.app.implementation.HttpDefaultNetworkManager</path>
                 <address>https://211.252.133.174:443/</address>
-                <!--<address>https://211.241.199.94:443/</address>-->
                 <timeout>10000</timeout>
                 <encoding>utf-8</encoding>
                 <type>rest</type>
@@ -53,7 +51,6 @@
             <HTTP_APPSTORE_API>
                 <path>mcore.mobile.app.implementation.HttpDefaultNetworkManager</path>
                 <address>https://uracle.co.kr/</address>
-                <!--<address>https://mo.q-net.or.kr/upmc/</address>-->
                 <timeout>100000</timeout>
                 <encoding>utf-8</encoding>
                 <type>rest</type>
