@@ -74,10 +74,13 @@ jobs:
       - name: Release to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.ref_name }}
-          name: Release ${{ github.ref_name }}
-          files: '**/app-release.aab'
-          #files: android/app/build/outputs/bundle/release/app-release.aab
+          tag_name: auto-${{ github.run_number }}
+          name: Release auto-${{ github.run_number }}
+          prerelease: true
+          files: |
+            android/app/build/outputs/apk/release/app-release.apk
+            android/app/build/outputs/bundle/release/app-release.aab
+            output/release.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
