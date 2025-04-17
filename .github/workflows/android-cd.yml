@@ -120,6 +120,14 @@ jobs:
         with:
           name: presigned-url
           path: presigned_url.txt
+
+      - name: Release to GitHub
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            presigned_url.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #------------------------------------------------------------------------
 
       #Fastlane을 사용한 앱 배포 예시 (필요 시 별도 수정)
