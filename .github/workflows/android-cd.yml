@@ -24,6 +24,9 @@ permissions:
 
 jobs:
   release:
+    # if 조건 : 수동 릴리즈시에는 릴리즈 브랜치에서만 릴리즈될 수 있도록 +
+    # 기본 자동 릴리즈시에는 커밋 메시지가[debug] 인 경우에는 릴리즈되지 않도록 +
+    # 태그 기반으로도 릴리즈 될 수 있도록
     if: |
       (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/release')
       || (github.event_name == 'push' && github.ref == 'refs/heads/release' && !contains(github.event.head_commit.message, '[debug]'))
@@ -84,52 +87,82 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      #Fastlane을 사용한 앱 배포 예시
+      #------------------------------------------------------------------------
+      - name: Upload APK to AWS S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.S3_BUCKET_NAME }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ap-northeast-2
+          SOURCE_DIR: android/app/build/outputs/apk/release/
+          DEST_DIR: release/apk/
+      #------------------------------------------------------------------------
+      - name: Generate Presigned URL
+        id: presign
+        run: |
+          URL=$(aws s3 presign s3://dlals4585/release/apk/app-release-unsigned.apk \
+            --expires-in 3600)
+          echo "url=$URL" >> $GITHUB_OUTPUT
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ap-northeast-2
+      - name: Show Presigned URL
+        run: |
+          echo "URL = ${{ steps.presign.outputs.url }}"
+      #------------------------------------------------------------------------
+
+      #Fastlane을 사용한 앱 배포 예시 (필요 시 별도 수정)
       # > Fastlane이 Google play developer api를 내부적으로 wrapping해서 사용함
       # > fastlane/Fastlane 파일에 관련 내용 정의됨
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-
-      - name: Install Fastlane
-        run: gem install fastlane
-
-      - name: Deploy to Play Store
-        run: fastlane internal
-        env:
-          GOOGLE_PLAY_KEY: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_JSON }}
-          PACKAGE_NAME: ${{ secrets.PACKAGE_NAME }}
-
-      #upload-google-play 사용한 앱 배포 예시
+      #      - name: Set up Ruby
+      #        uses: ruby/setup-ruby@v1
+      #        with:
+      #          ruby-version: '3.2'
+      #
+      #      - name: Install Fastlane
+      #        run: gem install fastlane
+      #
+      #      - name: Deploy to Play Store
+      #        run: fastlane internal
+      #        env:
+      #          GOOGLE_PLAY_KEY: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_JSON }}
+      #          PACKAGE_NAME: ${{ secrets.PACKAGE_NAME }}
+      #------------------------------------------------------------------------
+      #upload-google-play 사용한 앱 배포 예시 (필요 시 별도 수정)
       # > GitHub Actions용 Play Store 업로드 액션
-#      - name: Upload AAB to Google Play
-#        uses: r0adkll/upload-google-play@v1
-#        with:
-#          serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_JSON }}
-#          packageName: ${{ secrets.PACKAGE_NAME }}
-#          #releaseFiles: android/app/build/outputs/bundle/release/app-release.aab
-#          releaseFiles: '**/release/*.aab'
-#          track: ${{ github.event.inputs.release_track }}
-#          status: completed
+      #      - name: Upload AAB to Google Play
+      #        uses: r0adkll/upload-google-play@v1
+      #        with:
+      #          serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_JSON }}
+      #          packageName: ${{ secrets.PACKAGE_NAME }}
+      #          #releaseFiles: android/app/build/outputs/bundle/release/app-release.aab
+      #          releaseFiles: '**/release/*.aab'
+      #          track: ${{ github.event.inputs.release_track }}
+      #          status: completed
+      #------------------------------------------------------------------------
 
-#      #사내 NAS/API 업로드(curl) 예시
-#      - name: Upload to QA NAS via API
-#        if: contains(github.event.head_commit.message, '[release]')
-#        run: |
-#          curl -X POST https://사내 업로드 주소 \
-#            -H "Authorization: Bearer ${{ secrets.NAS_API_TOKEN }}" \
-#            -F "file=@app-${{ github.run_number }}.zip"
-
-#      #사내 NAS/API 업로드(scp) 예시
-#      - name: Upload ZIP to NAS via SCP
-#        if: contains(github.event.head_commit.message, '[release]')
-#        run: |
-#          echo "${{ secrets.NAS_SSH_KEY }}" > id_rsa
-#          chmod 600 id_rsa
-#
-#          scp -i id_rsa -o StrictHostKeyChecking=no \
-#            app-${{ github.run_number }}.zip \
-#            ${{ secrets.NAS_USER }}@${{ secrets.NAS_HOST }}:${{ secrets.NAS_TARGET_PATH }}
-#
-#          rm id_rsa
+      #      #사내 NAS/API 업로드(curl) 예시 (필요 시 별도 수정)
+      #      - name: Upload to QA NAS via API
+      #        if: contains(github.event.head_commit.message, '[release]')
+      #        run: |
+      #          curl -X POST https://사내 업로드 주소 \
+      #            -H "Authorization: Bearer ${{ secrets.NAS_API_TOKEN }}" \
+      #            -F "file=@app-${{ github.run_number }}.zip"
+      #------------------------------------------------------------------------
+      #      #사내 NAS/API 업로드(scp) 예시 (필요 시 별도 수정)
+      #      - name: Upload ZIP to NAS via SCP
+      #        if: contains(github.event.head_commit.message, '[release]')
+      #        run: |
+      #          echo "${{ secrets.NAS_SSH_KEY }}" > id_rsa
+      #          chmod 600 id_rsa
+      #
+      #          scp -i id_rsa -o StrictHostKeyChecking=no \
+      #            app-${{ github.run_number }}.zip \
+      #            ${{ secrets.NAS_USER }}@${{ secrets.NAS_HOST }}:${{ secrets.NAS_TARGET_PATH }}
+      #
+      #          rm id_rsa
+      #------------------------------------------------------------------------
