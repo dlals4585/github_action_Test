@@ -104,13 +104,12 @@ jobs:
         id: presign
         run: |
           URL=$(aws s3 presign s3://dlals4585/release/apk/app-release-unsigned.apk \
-            --region ap-northeast-2 \
             --expires-in 3600)
           echo "url=$URL" >> $GITHUB_OUTPUT
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ap-northeast-2
+          AWS_REGION: ${{ secrets.S3_BUCKET_REGION }}
       - name: Show Presigned URL
         run: echo "📦 URL = ${{ steps.presign.outputs.url }}"
       #------------------------------------------------------------------------
