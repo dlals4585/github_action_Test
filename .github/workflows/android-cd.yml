@@ -25,7 +25,7 @@ permissions:
 jobs:
   release:
     # if 조건 : 수동 릴리즈시에는 릴리즈 브랜치에서만 릴리즈될 수 있도록 +
-    # 기본 자동 릴리즈시에는 커밋 메시지가[debug] 인 경우에는 릴리즈되지 않도록 +
+    # 기본 자동 릴리즈시에는 커밋 메시지가[debug]인 경우에는 릴리즈되지 않도록 +
     # 태그 기반으로도 릴리즈 될 수 있도록
     if: |
       (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/release')
@@ -87,6 +87,24 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Generate Latest URL File
+        run: |
+          echo "https://github.com/${{ github.repository }}/releases/download/auto-${{ github.run_number }}/app-release-unsigned.apk" > latest.txt
+
+      - name: Deploy latest.txt to GitHub Pages
+        run: |
+          mkdir -p out
+          cp latest.txt out/
+          cd out
+          git init
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git checkout -b gh-pages
+          git add .
+          git commit -m "Update latest.txt"
+          git push -f origin gh-pages
+
       #------------------------------------------------------------------------
       - name: Upload APK to AWS S3
         uses: jakejarvis/s3-sync-action@master
@@ -115,11 +133,11 @@ jobs:
         run: |
           echo "${{ steps.presign.outputs.url }}" > presigned_url.txt
 
-#      - name: Upload URL artifact
-#        uses: actions/upload-artifact@3b4b0c3e361fd37e6e2db7c13e4bafff4f932d4d
-#        with:
-#          name: presigned-url
-#          path: presigned_url.txt
+      #      - name: Upload URL artifact
+      #        uses: actions/upload-artifact@3b4b0c3e361fd37e6e2db7c13e4bafff4f932d4d
+      #        with:
+      #          name: presigned-url
+      #          path: presigned_url.txt
 
       - name: Release presigned URL
         uses: softprops/action-gh-release@v1
