@@ -112,7 +112,7 @@ jobs:
           AWS_REGION: ap-northeast-2
       - name: Show Presigned URL
         run: |
-          echo "📦 URL = ${{ steps.presign.outputs.url }}"
+          echo "URL = ${{ steps.presign.outputs.url }}"
       #------------------------------------------------------------------------
 
       #Fastlane을 사용한 앱 배포 예시 (필요 시 별도 수정)
