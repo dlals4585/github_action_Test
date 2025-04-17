@@ -116,7 +116,7 @@ jobs:
           echo "${{ steps.presign.outputs.url }}" > presigned_url.txt
 
       - name: Upload URL artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.3
         with:
           name: presigned-url
           path: presigned_url.txt
