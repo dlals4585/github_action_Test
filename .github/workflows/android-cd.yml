@@ -99,6 +99,18 @@ jobs:
           SOURCE_DIR: android/app/build/outputs/apk/release/
           DEST_DIR: release/apk/
       #------------------------------------------------------------------------
+      - name: Generate Presigned URL
+        id: presign
+        run: |
+          URL=$(aws s3 presign s3://dlals4585/release/apk/app-release.apk \
+            --region ap-northeast-2 \
+            --expires-in 3600)
+          echo "url=$URL" >> $GITHUB_OUTPUT
+
+      - name: Show Presigned URL
+        run:
+          echo "📦 APK Download URL: ${{ steps.presign.outputs.url }}"
+      #------------------------------------------------------------------------
       #Fastlane을 사용한 앱 배포 예시
       # > Fastlane이 Google play developer api를 내부적으로 wrapping해서 사용함
       # > fastlane/Fastlane 파일에 관련 내용 정의됨
