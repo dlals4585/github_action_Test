@@ -115,11 +115,11 @@ jobs:
         run: |
           echo "${{ steps.presign.outputs.url }}" > presigned_url.txt
 
-      - name: Upload URL artifact
-        uses: actions/upload-artifact@3b4b0c3e361fd37e6e2db7c13e4bafff4f932d4d
-        with:
-          name: presigned-url
-          path: presigned_url.txt
+#      - name: Upload URL artifact
+#        uses: actions/upload-artifact@3b4b0c3e361fd37e6e2db7c13e4bafff4f932d4d
+#        with:
+#          name: presigned-url
+#          path: presigned_url.txt
 
       - name: Release to GitHub
         uses: softprops/action-gh-release@v1
