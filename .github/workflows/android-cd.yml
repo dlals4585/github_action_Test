@@ -106,10 +106,6 @@ jobs:
             --region ap-northeast-2 \
             --expires-in 3600)
           echo "url=$URL" >> $GITHUB_OUTPUT
-
-      - name: Show Presigned URL
-        run:
-          echo "📦 APK Download URL: ${{ steps.presign.outputs.url }}"
       #------------------------------------------------------------------------
       #Fastlane을 사용한 앱 배포 예시
       # > Fastlane이 Google play developer api를 내부적으로 wrapping해서 사용함
