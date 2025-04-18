@@ -74,12 +74,6 @@ jobs:
       - name: Build AAB
         run: ./gradlew bundleRelease
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: presigned-url
-          path: presigned_url.txt
-
       - name: Release to GitHub
         uses: softprops/action-gh-release@v1
         with:
@@ -138,6 +132,12 @@ jobs:
       - name: Save Presigned URL to File
         run: |
           echo "${{ steps.presign.outputs.url }}" > presigned_url.txt
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: presigned-url
+          path: presigned_url.txt
 
       - name: Release presigned URL
         uses: softprops/action-gh-release@v1
