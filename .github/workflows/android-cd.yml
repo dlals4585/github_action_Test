@@ -36,7 +36,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -73,6 +73,12 @@ jobs:
 
       - name: Build AAB
         run: ./gradlew bundleRelease
+
+      - name: Upload URL artifact
+        uses: actions/upload-artifact@4
+        with:
+          name: presigned-url
+          path: presigned_url.txt
 
       - name: Release to GitHub
         uses: softprops/action-gh-release@v1
@@ -132,12 +138,6 @@ jobs:
       - name: Save Presigned URL to File
         run: |
           echo "${{ steps.presign.outputs.url }}" > presigned_url.txt
-
-      #      - name: Upload URL artifact
-      #        uses: actions/upload-artifact@3b4b0c3e361fd37e6e2db7c13e4bafff4f932d4d
-      #        with:
-      #          name: presigned-url
-      #          path: presigned_url.txt
 
       - name: Release presigned URL
         uses: softprops/action-gh-release@v1
